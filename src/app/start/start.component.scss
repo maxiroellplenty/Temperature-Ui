@@ -21,8 +21,8 @@ img
 
 .header
 {
-    background-color: #4BA9E1;
-    height: 20vh;
+    background-color: #2b2b2b;
+    min-height: 20vh;
     color: white;
     span
     {
@@ -47,6 +47,7 @@ img
 table
 {
     background-color: white;
+    border-radius: 3px;
     th
     {
     
@@ -57,7 +58,18 @@ table
         border-bottom: 1px solid lightgrey;
     }
 }
-
+.footer
+{
+    margin-top: 10vh;
+    background-color: #2B2B2B;
+    color: white;
+    padding: 30px;
+    img
+    {
+        height: 20vh;
+        margin-right: 10px;
+    }
+}
 .content_container
 {
     margin-top: 20px;

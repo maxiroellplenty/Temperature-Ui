@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Component({
                selector: 'start-component',
@@ -13,10 +14,13 @@ export class StartComponent
     public lineChartData:Array<any> = [];
     public lineChartLabels:Array<any> = [];
     public lineChartType:string = 'line';
+    public data:any;
 
-
-    constructor()
+    constructor(private http:Http)
     {
+
+        this.http.get('http://localhost/getData.php')
+            .subscribe(res => this.data = res.json());
         this.lineChartData.push([]);
         this.isToggled = true;
         for(let i:number = 0; i < 20; i++)

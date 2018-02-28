@@ -45,6 +45,14 @@
             </div>
         </div>
         <div class="col-md-8">
+            <terra-portlet inputPortletHeader="Temperature monitor" [inputIsCollapsable]="true">
+                <canvas baseChart
+                        [data]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [chartType]="lineChartType">
+                </canvas>
+            </terra-portlet>
             <terra-portlet class="log_table_portlet" inputPortletHeader="Temperature log" [inputIsCollapsable]="true">
                 <table style="width:100%">
                     <tr>
@@ -59,14 +67,30 @@
                     </tr>
                 </table>
             </terra-portlet>
-            <terra-portlet inputPortletHeader="Temperature log" [inputIsCollapsable]="true">
-                <canvas baseChart
-                        [data]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [chartType]="lineChartType">
-                </canvas>
-            </terra-portlet>
+        </div>
+    </div>
+</div>
+<div *ngFor="let d of data">
+    <p>{{d.temperature}}</p>
+</div>
+<div class="container-fluid">
+    <div class="row footer">
+        <div class="col-md-2">
+            <h1>Contributions</h1>
+            <p>Andre Salzmann</p>
+            <p>Maximilian Röll</p>
+            <p>Natascha Krägelius</p>
+            <p>Yannic Fenn</p>
+        </div>
+        <div class="col-md-10">
+            <img alt="angular2" src="https://angular.io/assets/images/logos/angular/angular_whiteTransparent.svg">
+            <img alt="raspberry pi" src="https://cdn.worldvectorlogo.com/logos/raspberry-pi.svg">
+            <img alt="bootstrap"
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Boostrap_logo.svg/1193px-Boostrap_logo.svg.png">
+            <img alt="python"
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/240px-Python-logo-notext.svg.png">
+            <img alt="chart js" src="http://www.chartjs.org/img/chartjs-logo.svg">
+            <img alt="github" src="https://material.angular.io/assets/img/homepage/github-circle-white-transparent.svg">
         </div>
     </div>
 </div>
