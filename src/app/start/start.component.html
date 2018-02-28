@@ -1,0 +1,72 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-md-center header">
+            <span>
+                temperature surveillance center
+            </span>
+        </div>
+    </div>
+</div>
+<div class="container content_container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="https://cdn4.iconfinder.com/data/icons/whsr-january-flaticon-set/512/servers.png"
+                     alt="Card image cap">
+                <div class="card-body text-md-center">
+                    <h4 class="card-title">Server Temp Control</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Status:</strong>
+                        <span class="green" [class.red]="!isToggled">{{status}}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Control service:</strong>
+                        <terra-toggle [inputIcon]="'icon-active'"
+                                      [inputTooltipText]="'manage service'"
+                                      [(ngModel)]="isToggled"
+                                      (ngModelChange)="setStatus()"
+                                      [inputTooltipPlacement]="'right'">
+                        </terra-toggle>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Temperature:</strong>
+                        <span>{{tempLogData[0].temperature}}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Air pressure:</strong>
+                        <span>{{tempLogData[0].airPressure}}</span>
+                    </li>
+                </ul>
+                <div class="card-body">
+                
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <terra-portlet class="log_table_portlet" inputPortletHeader="Temperature log" [inputIsCollapsable]="true">
+                <table style="width:100%">
+                    <tr>
+                        <th>Date</th>
+                        <th>Temperature</th>
+                        <th>Air pressure</th>
+                    </tr>
+                    <tr *ngFor="let tempLog of tempLogData">
+                        <td>{{tempLog.date}}</td>
+                        <td>{{tempLog.temperature}}</td>
+                        <td>{{tempLog.airPressure}}</td>
+                    </tr>
+                </table>
+            </terra-portlet>
+            <terra-portlet inputPortletHeader="Temperature log" [inputIsCollapsable]="true">
+                <canvas baseChart
+                        [data]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [chartType]="lineChartType">
+                </canvas>
+            </terra-portlet>
+        </div>
+    </div>
+</div>
