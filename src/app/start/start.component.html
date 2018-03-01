@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 text-md-center header">
             <span>
-                temperature surveillance center
+                Temperature Surveillance Center
             </span>
         </div>
     </div>
@@ -23,20 +23,20 @@
                     </li>
                     <li class="list-group-item">
                         <strong>Control service:</strong>
-                        <terra-toggle [inputIcon]="'icon-active'"
-                                      [inputTooltipText]="'manage service'"
+                        <terra-toggle inputIcon="icon-active"
+                                      inputTooltipText="manage service"
                                       [(ngModel)]="isToggled"
                                       (ngModelChange)="setStatus()"
-                                      [inputTooltipPlacement]="'right'">
+                                      inputTooltipPlacement="right">
                         </terra-toggle>
                     </li>
                     <li class="list-group-item">
                         <strong>Temperature:</strong>
-                        <span>{{tempLogData[0].temperature}}</span>
+                        <span>{{tempLogData[0]?.data[0]?.temperature}}</span>
                     </li>
                     <li class="list-group-item">
                         <strong>Air pressure:</strong>
-                        <span>{{tempLogData[0].airPressure}}</span>
+                        <span>{{tempLogData[0]?.data[0]?.airPressure}}</span>
                     </li>
                 </ul>
                 <div class="card-body">
@@ -45,38 +45,39 @@
             </div>
         </div>
         <div class="col-md-8">
-            <terra-portlet inputPortletHeader="Temperature monitor" [inputIsCollapsable]="true">
+            <terra-portlet inputPortletHeader="Temperature monitor"
+                           [inputIsCollapsable]="true">
+                <terra-button inputIcon="icon-reload" (outputClicked)="callTemperatureDataScript()"></terra-button>
                 <canvas baseChart
                         [data]="lineChartData"
                         [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
                         [chartType]="lineChartType">
                 </canvas>
             </terra-portlet>
             <terra-portlet class="log_table_portlet" inputPortletHeader="Temperature log" [inputIsCollapsable]="true">
                 <table style="width:100%">
                     <tr>
-                        <th>Date</th>
-                        <th>Temperature</th>
+                        <th>Date & Time</th>
+                        <th>Type</th>
                         <th>Air pressure</th>
+                        <th>Location</th>
                     </tr>
-                    <tr *ngFor="let tempLog of tempLogData">
-                        <td>{{tempLog.date}}</td>
-                        <td>{{tempLog.temperature}}</td>
-                        <td>{{tempLog.airPressure}}</td>
+                    
+                    <tr *ngFor="let tempLog of tempLogData[0]?.data">
+                        <td>{{tempLog?.Wert}}</td>
+                        <td>{{tempLog?.Name}}</td>
+                        <td>{{tempLog?.Name}}</td>
+                        <td>{{tempLog?.Ort}}</td>
                     </tr>
                 </table>
             </terra-portlet>
         </div>
     </div>
 </div>
-<div *ngFor="let d of data">
-    <p>{{d.temperature}}</p>
-</div>
 <div class="container-fluid">
     <div class="row footer">
         <div class="col-md-2">
-            <h1>Contributions</h1>
+            <h1>Contributors</h1>
             <p>Andre Salzmann</p>
             <p>Maximilian Röll</p>
             <p>Natascha Krägelius</p>

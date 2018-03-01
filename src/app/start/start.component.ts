@@ -14,29 +14,14 @@ export class StartComponent
     public lineChartData:Array<any> = [];
     public lineChartLabels:Array<any> = [];
     public lineChartType:string = 'line';
-    public data:any;
 
     constructor(private http:Http)
     {
-
-        this.http.get('http://localhost/getData.php')
-            .subscribe(res => this.data = res.json());
-        this.lineChartData.push([]);
         this.isToggled = true;
-        for(let i:number = 0; i < 20; i++)
-        {
-            this.tempLogData.push({
-                                      date:   new Date().toLocaleTimeString(),
-                                      temperature: 32 + i,
-                                      airPressure: 13311
-                                  });
-        }
-        for(let data of this.tempLogData)
-        {
-            this.lineChartData[0].push(data.temperature);
-            this.lineChartLabels.push(data.date);
-        }
         this.setStatus();
+        this.callTemperatureDataScript();
+
+
     }
 
     public setStatus():void
@@ -50,17 +35,45 @@ export class StartComponent
             this.status = 'offline';
         }
     }
-    private getCalcAverage():number
+
+    public callTemperatureDataScript():void
     {
-        let average:number = 0;
-        let counter:number = 0;
-        for(let data of this.tempLogData)
-        {
-            counter++;
-            average += data.temperature;
-        }
-        return average / counter;
+        this.http.get('http://localhost/getData.php')
+            .map((res:any) => res.json())
+            .subscribe((res:any) => {
+                console.log(res);
+                this.createSqlMetaData(res);
+                this.createTemperatureData();
+            });
     }
+
+    private createSqlMetaData(data:any):void
+    {
+        this.tempLogData[0] = {
+            data: []
+        };
+        for(let row of data)
+        {
+            this.tempLogData[0].data.push(
+                {
+                    Ort: row.Ort,
+                    Name: row.Name,
+                    Wert: row.Wert,
+
+                });
+        }
+        console.log(this.tempLogData);
+    }
+
+    private createTemperatureData():void
+    {
+        for(let data of this.tempLogData[0].data)
+        {
+            this.lineChartData.push(Number(data.temperature));
+            this.lineChartLabels.push(data.Wert);
+        }
+    }
+
 }
 
 
