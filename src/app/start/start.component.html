@@ -59,14 +59,14 @@
                     <tr>
                         <th>Date & Time</th>
                         <th>Type</th>
-                        <th>Air pressure</th>
+                        <th>Value</th>
                         <th>Location</th>
                     </tr>
                     
                     <tr *ngFor="let tempLog of tempLogData[0]?.data">
                         <td>{{tempLog?.Wert}}</td>
                         <td>{{tempLog?.Name}}</td>
-                        <td>{{tempLog?.Name}}</td>
+                        <td>{{tempLog?.Value}}</td>
                         <td>{{tempLog?.Ort}}</td>
                     </tr>
                 </table>

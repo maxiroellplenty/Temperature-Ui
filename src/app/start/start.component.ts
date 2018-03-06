@@ -20,8 +20,6 @@ export class StartComponent
         this.isToggled = true;
         this.setStatus();
         this.callTemperatureDataScript();
-
-
     }
 
     public setStatus():void
@@ -59,7 +57,7 @@ export class StartComponent
                     Ort: row.Ort,
                     Name: row.Name,
                     Wert: row.Wert,
-
+                    Value: row.Value
                 });
         }
         console.log(this.tempLogData);
@@ -69,7 +67,7 @@ export class StartComponent
     {
         for(let data of this.tempLogData[0].data)
         {
-            this.lineChartData.push(Number(data.temperature));
+            this.lineChartData.push(Number(data.Value));
             this.lineChartLabels.push(data.Wert);
         }
     }
